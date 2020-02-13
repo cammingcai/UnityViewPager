@@ -37,7 +37,7 @@ namespace UnityEngine.UI.Extensions {
 
         private bool _startDrag = true;
         private Vector3 _startPosition = new Vector3 ();
-        private int _currentScreen;
+        private int currentPostiion;
         public float _speed=10;
 
         private Transform contentItemTf;
@@ -124,8 +124,9 @@ namespace UnityEngine.UI.Extensions {
                 
                 _lerp = true;
                 _lerp_target = _positions[CurrentScreen () + 1];
-
                 ChangeBulletsInfo (CurrentScreen () + 1);
+
+                
             }
         }
 
@@ -134,26 +135,26 @@ namespace UnityEngine.UI.Extensions {
             if (CurrentScreen () > 0) {
                 Debug.Log(CurrentScreen());
                 _lerp = true;
-                _lerp_target = _positions[CurrentScreen () - 1];
+                _lerp_target = _positions[currentPostiion - 1];
 
-                ChangeBulletsInfo (CurrentScreen () - 1);
+                ChangeBulletsInfo (currentPostiion - 1);
             }
         }
 
         private void NextScreenCommand () {
-            if (_currentScreen < _screens - 1) {
+            if (currentPostiion < _screens - 1) {
                 _lerp = true;
-                _lerp_target = _positions[_currentScreen + 1];
+                _lerp_target = _positions[currentPostiion + 1];
 
-                ChangeBulletsInfo (_currentScreen + 1);
+                ChangeBulletsInfo (currentPostiion + 1);
             }
         }
         private void PrevScreenCommand () {
-            if (_currentScreen > 0) {
+            if (currentPostiion > 0) {
                 _lerp = true;
-                _lerp_target = _positions[_currentScreen - 1];
+                _lerp_target = _positions[currentPostiion - 1];
 
-                ChangeBulletsInfo (_currentScreen - 1);
+                ChangeBulletsInfo (currentPostiion - 1);
             }
         }
 
@@ -193,7 +194,7 @@ namespace UnityEngine.UI.Extensions {
                 }
         }
 
-        //基于品目分辨率改变——screensContainer子物体的坐标和位置
+        //基于屏幕分辨率改变——screensContainer子物体的坐标和位置
         private void DistributePages () {
             int _offset = 0;
             int _step = Screen.width;
@@ -218,7 +219,7 @@ namespace UnityEngine.UI.Extensions {
             _startPosition = _screensContainer.localPosition;
             _fastSwipeCounter = 0;
             _fastSwipeTimer = true;
-            _currentScreen = CurrentScreen ();
+            currentPostiion = CurrentScreen ();
         }
 
         public void OnEndDrag (PointerEventData eventData) {
